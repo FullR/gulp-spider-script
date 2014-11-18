@@ -12,3 +12,7 @@ Example use:
 			.pipe(spider())
 			.pipe(gulp.dest("destination-dir"));
 	});
+
+TODO:
+
+Add source map support
