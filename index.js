@@ -6,14 +6,23 @@ var through = require("through2"),
 	PluginError = gutil.PluginError,
 	PLUGIN_NAME = "gulp-spider-script";
 
-function compileStream(options) {
-	return through(function(chunk, enc, cb) {
-		cb(null, spider.compile(chunk, !!options.verbose));
-	});
-}
 
+
+
+/* 
+	formats spider errors into a single string with the format:
+
+		type {error type}
+		{error message}
+		line {line} column {column}
+
+*/
 function formatError(error) {
-	return ["type: " + error.type, error.message, "line " + error.loc.start.line + " column " + error.loc.start.column].join("\n");
+	return [
+		"type: " + error.type, 
+		error.message, 
+		"line " + error.loc.start.line + " column " + error.loc.start.column
+	].join("\n");
 }
 
 // plugin level function (dealing with files)
@@ -21,6 +30,15 @@ function gulpSpiderScript(options) {
 	var errors = [];
 	options = options || {};
 
+	function compileStream(options) {
+		return through(function(chunk, enc, cb) {
+			var compiledJs = spider.compile(chunk, !!options.verbose);
+			checkErrors();
+			cb(null, compiledJs);
+		});
+	}
+
+	// checks if errors were logged, if so, format and throw them
 	function checkErrors() {
 		if(errors.length) {
 			throw new PluginError(PLUGIN_NAME, {
