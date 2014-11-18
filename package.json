@@ -9,5 +9,9 @@
 		"gulp-util": "^3.0.1",
 		"spider-script": "0.0.4",
 		"through2": "^0.6.3"
+	},
+	"repository": { 
+		"type" : "git",
+		"url" : "https://github.com/FullR/gulp-spider-script.git"
 	}
 }
