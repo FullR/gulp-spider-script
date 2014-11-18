@@ -1,0 +1,13 @@
+{
+	"name": "gulp-spider-script",
+	"version": "0.0.2",
+	"author": {
+		"name": "James Meyers",
+		"email": "James.Meyers919@gmail.com"
+	},
+	"dependencies": {
+		"gulp-util": "^3.0.1",
+		"spider-script": "0.0.4",
+		"through2": "^0.6.3"
+	}
+}
